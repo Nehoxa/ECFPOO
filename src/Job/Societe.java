@@ -155,6 +155,8 @@ public abstract class Societe {
     public void setNumRue(String numRue) throws FormException {
         if (numRue == null || numRue.isEmpty()) {
             throw new FormException("Le champ 'Numéro de rue' ne doit pas être vide");
+        } else if (numRue.length() > 10) {
+            throw new FormException("Le champ 'Numéro de rue' doit être inférieur à 10 caractères");
         }
         this.numRue = numRue;
     }
@@ -199,6 +201,8 @@ public abstract class Societe {
     public void setCodePostale(String codePostale) throws FormException {
         if (codePostale == null || codePostale.isEmpty()) {
             throw new FormException("Le champ 'Code postale' ne doit pas être vide");
+        } else if (codePostale.length() > 10) {
+            throw new FormException("Le champ 'Code postale' doit être inférieur à 10 caractères");
         }
         this.codePostale = codePostale;
     }
@@ -245,6 +249,8 @@ public abstract class Societe {
             throw new FormException("Le champ 'Téléphone' ne doit pas être vide");
         } else if (telephone.length() < 10) {
             throw new FormException("Le champ 'Téléphone' doit être supérieur à 10 chiffres");
+        } else if (telephone.length() > 13) {
+            throw new FormException("Le champ 'Téléphone' doit être inférieur à 14 chiffres");
         }
         this.telephone = telephone;
     }
@@ -288,5 +294,16 @@ public abstract class Societe {
      */
     public void setCommentaire(String commentaire) throws FormException {
         this.commentaire = commentaire;
+    }
+
+    public String toString() {
+        return "id : " + getId() + "\n" +
+                "Raison social : " + getRaisonSociale() + "\n" +
+                "Numéro de rue : " + getNumRue() + "\n" +
+                "Nom de rue : " + getNomRue() + "\n" +
+                "Code Postale : " + getCodePostale() + "\n" +
+                "Ville : " + getVille() + "\n" +
+                "Téléphone : " + getTelephone() + "\n" +
+                "Mail : " + getMail() + "\n";
     }
 }

@@ -2,6 +2,8 @@ package Job;
 
 import Exception.FormException;
 
+import java.util.logging.Level;
+
 /**
  * Cette classe représente un client qui est une société.
  */
@@ -109,6 +111,8 @@ public class Client extends Societe {
      * @return Raison sociale du client.
      */
     public String toString() {
-        return getRaisonSociale();
+        return super.toString() +
+                "Chiffre d'affaires : " + getChiffreAffaire() + "\n" +
+                "Nombre d'employés : " + getNbEmployes() + "\n";
     }
 }

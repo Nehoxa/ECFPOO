@@ -112,6 +112,8 @@ public class Prospect extends Societe {
      * @return Raison sociale du prospect.
      */
     public String toString() {
-        return getRaisonSociale();
+        return super.toString() +
+                "Chiffre d'affaires : " + getDateProspect() + "\n" +
+                "Nombre d'employés : " + getInterret() + "\n";
     }
 }

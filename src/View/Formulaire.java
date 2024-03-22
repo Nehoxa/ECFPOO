@@ -2,18 +2,17 @@ package View;
 
 import Controller.AcceuilController;
 import Controller.FormulaireController;
+import Exception.DaoException;
 import Exception.FormException;
 import Job.Client;
 import Job.Prospect;
 import Service.LogWritter;
+
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -51,7 +50,7 @@ public class Formulaire extends JDialog {
      * @param type      Le type du formulaire (client ou prospect).
      * @param queryType Le type de la requête (création, mise à jour ou suppression).
      */
-    public Formulaire(String type, String queryType){
+    public Formulaire(String type, String queryType) {
         // Initialisation de la fenêtre
         setContentPane(contentPane);
         this.setSize(500, 800);
@@ -177,21 +176,22 @@ public class Formulaire extends JDialog {
                             AcceuilController.returnAcceuil();
                         }
                     }
-                } catch (HeadlessException ex) {
-                    throw new RuntimeException(ex);
-                } catch (NumberFormatException ne) {
-                    JOptionPane.showMessageDialog(null, "Le séparateur du chiffre d'affaire doit être un point '.'");
+                } catch (DateTimeParseException dtpe) {
+                    JOptionPane.showMessageDialog(null, "La date doit avoir le format 'jj/mm/aaaa'");
+                } catch (NumberFormatException nfe) {
+                    JOptionPane.showMessageDialog(null, "Le champs 'Nombre d'employés' doit être un entier");
                 } catch (FormException fe) {
-                    JOptionPane.showMessageDialog(null, fe.getMessage());
-                } catch (SQLException se) {
-                    JOptionPane.showMessageDialog(null, "L'utilisateur que vous essayez d'enregistrer existe déjà.");
-                } catch (IOException ie) {
-                    JOptionPane.showMessageDialog(null, "Une erreur s'est produite.");
-                    LogWritter.LOGGER.log(Level.SEVERE, "Error IO : " + ie.getMessage());
-                } catch (DateTimeException de) {
-                    JOptionPane.showMessageDialog(null, "La date est invalide");
+                    JOptionPane.showMessageDialog(null, "Erreur de saisie : " + fe.getMessage());
+                } catch (DaoException daoe) {
+                    if (daoe.getLevel() == Level.SEVERE) {
+                        JOptionPane.showMessageDialog(null, daoe.getMessage());
+                        System.exit(1);
+                    }
+                    JOptionPane.showMessageDialog(null, daoe.getMessage());
                 } catch (Exception ex) {
-                    LogWritter.LOGGER.log(Level.SEVERE, "Error IO : " + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "L'application a rencontré un problème va se fermer");
+                    LogWritter.LOGGER.log(Level.SEVERE, "Error : " + ex.getMessage());
+                    System.exit(1);
                 }
             }
         });
@@ -210,14 +210,10 @@ public class Formulaire extends JDialog {
                         JOptionPane.showMessageDialog(null, "Le prospect a été supprimé avec succès.");
                         AcceuilController.returnAcceuil();
                     }
-                } catch (SQLException se) {
-                    JOptionPane.showMessageDialog(null, "Une erreur s'est produite");
-                    LogWritter.LOGGER.log(Level.SEVERE, se.getMessage());
-                } catch (IOException ie) {
-                    JOptionPane.showMessageDialog(null, "Une erreur s'est produite.");
-                    LogWritter.LOGGER.log(Level.SEVERE, "Error IO : " + ie.getMessage());
                 } catch (Exception ex) {
-                    LogWritter.LOGGER.log(Level.SEVERE, "Error IO : " + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "L'application a rencontré un problème va se fermer");
+                    LogWritter.LOGGER.log(Level.SEVERE, "Error : " + ex.getMessage());
+                    System.exit(1);
                 }
             }
         });

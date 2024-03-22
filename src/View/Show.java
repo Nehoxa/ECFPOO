@@ -5,6 +5,8 @@ import Controller.AffichageController;
 import Job.Client;
 import Job.Prospect;
 import Exception.FormException;
+import Service.LogWritter;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -13,6 +15,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.logging.Level;
 
 /**
  * Cette classe représente une fenêtre d'affichage des données des clients ou des prospects.
@@ -27,11 +30,8 @@ public class Show extends JDialog {
      * Affiche les données des clients ou des prospects dans un tableau.
      *
      * @param raisonSociale Le type de données à afficher (client ou prospect).
-     * @throws SQLException   Une exception de base de données.
-     * @throws IOException    Une exception d'entrée/sortie.
-     * @throws FormException  Une exception de formulaire.
      */
-    public Show(String raisonSociale) throws SQLException, IOException, FormException {
+    public Show(String raisonSociale) {
         contentPane = new JPanel(new BorderLayout());
         setContentPane(contentPane);
         setModal(true);
@@ -65,54 +65,64 @@ public class Show extends JDialog {
         model.addColumn("Email");
         model.addColumn("Commentaire");
 
-        // Affichage des données en fonction du type de données à afficher
-        if (Objects.equals(raisonSociale, "client")) {
-            model.addColumn("Chiffre d'affaire");
-            model.addColumn("Nombre d'employées");
+        try {
+            // Affichage des données en fonction du type de données à afficher
+            if (Objects.equals(raisonSociale, "client")) {
+                model.addColumn("Chiffre d'affaire");
+                model.addColumn("Nombre d'employées");
 
-            ArrayList<Client> clients = AffichageController.getData(raisonSociale);
+                ArrayList<Client> clients = AffichageController.getData(raisonSociale);
 
-            // Remplissage du tableau avec les données des clients
-            for (Client client : clients) {
-                Object[] enregistrements = {
-                        client.getId(),
-                        client.getRaisonSociale(),
-                        client.getNumRue(),
-                        client.getNomRue(),
-                        client.getCodePostale(),
-                        client.getVille(),
-                        client.getTelephone(),
-                        client.getMail(),
-                        client.getCommentaire(),
-                        client.getChiffreAffaire(),
-                        client.getNbEmployes(),
-                };
-                model.addRow(enregistrements);
+                // Remplissage du tableau avec les données des clients
+                for (Client client : clients) {
+                    Object[] enregistrements = {
+                            client.getId(),
+                            client.getRaisonSociale(),
+                            client.getNumRue(),
+                            client.getNomRue(),
+                            client.getCodePostale(),
+                            client.getVille(),
+                            client.getTelephone(),
+                            client.getMail(),
+                            client.getCommentaire(),
+                            client.getChiffreAffaire(),
+                            client.getNbEmployes(),
+                    };
+                    model.addRow(enregistrements);
+                }
+            } else {
+                model.addColumn("Date de prospection");
+                model.addColumn("Intérêt");
+
+                ArrayList<Prospect> prospects = AffichageController.getData(raisonSociale);
+
+                // Remplissage du tableau avec les données des prospects
+                for (Prospect prospect : prospects) {
+                    Object[] enregistrements = {
+                            prospect.getId(),
+                            prospect.getRaisonSociale(),
+                            prospect.getNumRue(),
+                            prospect.getNomRue(),
+                            prospect.getCodePostale(),
+                            prospect.getVille(),
+                            prospect.getTelephone(),
+                            prospect.getMail(),
+                            prospect.getCommentaire(),
+                            prospect.getDateProspect(),
+                            prospect.getInterret(),
+                    };
+                    model.addRow(enregistrements);
+                }
             }
-        } else {
-            model.addColumn("Date de prospection");
-            model.addColumn("Intérêt");
-
-            ArrayList<Prospect> prospects = AffichageController.getData(raisonSociale);
-
-            // Remplissage du tableau avec les données des prospects
-            for (Prospect prospect : prospects) {
-                Object[] enregistrements = {
-                        prospect.getId(),
-                        prospect.getRaisonSociale(),
-                        prospect.getNumRue(),
-                        prospect.getNomRue(),
-                        prospect.getCodePostale(),
-                        prospect.getVille(),
-                        prospect.getTelephone(),
-                        prospect.getMail(),
-                        prospect.getCommentaire(),
-                        prospect.getDateProspect(),
-                        prospect.getInterret(),
-                };
-                model.addRow(enregistrements);
-            }
+        } catch (SQLException sqle) {
+            JOptionPane.showMessageDialog(null, sqle.getMessage());
+            System.exit(1);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "L'application a rencontré un problème va se fermer");
+            LogWritter.LOGGER.log(Level.SEVERE, "Error : " + ex.getMessage());
+            System.exit(1);
         }
+
 
         // Ajout du bouton de retour
         contentPane.add(ReturnButton, BorderLayout.SOUTH);

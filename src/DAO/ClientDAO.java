@@ -1,10 +1,14 @@
 package DAO;
 
-import Job.Client;
+import Exception.DaoException;
 import Exception.FormException;
-import java.io.IOException;
+
+import Job.Client;
+import Service.LogWritter;
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 /**
  * Cette classe fournit des méthodes pour accéder et manipuler les données des clients dans la base de données.
@@ -15,11 +19,9 @@ public class ClientDAO {
      * Méthode pour récupérer tous les clients de la base de données.
      *
      * @return Une liste contenant tous les clients de la base de données.
-     * @throws SQLException si une erreur SQL survient.
-     * @throws IOException si une erreur d'entrée/sortie survient.
-     * @throws FormException si une exception de formulaire est rencontrée.
+     * @throws Exception   Une exception.
      */
-    public static ArrayList<Client> findAll() throws SQLException, IOException, FormException {
+    public static ArrayList<Client> findAll() throws Exception {
         // Connexion à la base de données
         Connection con = ConnexionDAO.DAOConnexion();
         Statement stmt = null;
@@ -54,8 +56,12 @@ public class ClientDAO {
                 client.setNbEmployes(rs.getInt("NB_EMPLOYES"));
                 clients.add(client);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getErrorCode());
+            LogWritter.LOGGER.log(Level.SEVERE, "Problème de connexion " + sqle.getMessage());
+            throw new DaoException("Un problème de connexion est survenu l'application va donc s'arrêter", Level.SEVERE);
+        } catch (FormException fe) {
+            throw new DaoException(fe.getMessage(), Level.WARNING);
         } finally {
             if (stmt != null) {
                 stmt.close();
@@ -69,11 +75,9 @@ public class ClientDAO {
      *
      * @param name Le nom du client à rechercher.
      * @return Le client trouvé dans la base de données.
-     * @throws SQLException si une erreur SQL survient.
-     * @throws IOException si une erreur d'entrée/sortie survient.
-     * @throws FormException si une exception de formulaire est rencontrée.
+     * @throws Exception   Une exception.
      */
-    public static Client findByName(String name) throws SQLException, IOException, FormException {
+    public static Client findByName(String name) throws Exception {
         // Connexion à la base de données
         Connection con = ConnexionDAO.DAOConnexion();
         PreparedStatement stmt = null;
@@ -107,8 +111,11 @@ public class ClientDAO {
                 client.setChiffreAffaire(rs.getDouble("CHIFFRE_AFFAIRE"));
                 client.setNbEmployes(rs.getInt("NB_EMPLOYES"));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException sqle) {
+            LogWritter.LOGGER.log(Level.SEVERE, "Problème de connexion " + sqle.getMessage());
+            throw new DaoException("Un problème de connexion est survenu l'application va donc s'arrêter", Level.SEVERE);
+        } catch (FormException fe) {
+            throw new DaoException(fe.getMessage(), Level.WARNING);
         } finally {
             if (stmt != null) {
                 stmt.close();
@@ -121,10 +128,9 @@ public class ClientDAO {
      * Méthode pour insérer un nouveau client dans la base de données.
      *
      * @param client Le client à insérer.
-     * @throws SQLException si une erreur SQL survient.
-     * @throws IOException si une erreur d'entrée/sortie survient.
+     * @throws Exception   Une exception.
      */
-    public static void insertClient(Client client) throws SQLException, IOException {
+    public static void insertClient(Client client) throws Exception {
         // Connexion à la base de données
         Connection con = ConnexionDAO.DAOConnexion();
         PreparedStatement pstmt = null;
@@ -154,8 +160,14 @@ public class ClientDAO {
             pstmt.setInt(10, client.getNbEmployes());
 
             pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException sqle) {
+            if (sqle.getErrorCode() == 1062) {
+                throw new DaoException("La raison social existe déja", Level.WARNING);
+            } else if (sqle.getErrorCode() == 1406) {
+                throw new DaoException("Valeur trop longue", Level.WARNING);
+            }
+            LogWritter.LOGGER.log(Level.SEVERE, "Problème de connexion " + sqle.getMessage());
+            throw new DaoException("Un problème de connexion est survenu l'application va donc s'arrêter", Level.SEVERE);
         } finally {
             if (pstmt != null) {
                 pstmt.close();
@@ -168,10 +180,9 @@ public class ClientDAO {
      *
      * @param client Le client avec les informations mises à jour.
      * @param id L'identifiant du client à mettre à jour.
-     * @throws SQLException si une erreur SQL survient.
-     * @throws IOException si une erreur d'entrée/sortie survient.
+     * @throws Exception   Une exception.
      */
-    public static void updateClient(Client client, int id) throws SQLException, IOException {
+    public static void updateClient(Client client, int id) throws Exception {
         // Connexion à la base de données
         Connection con = ConnexionDAO.DAOConnexion();
         PreparedStatement pstmt = null;
@@ -201,8 +212,14 @@ public class ClientDAO {
             pstmt.setInt(10, client.getNbEmployes());
 
             pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException sqle) {
+            if (sqle.getErrorCode() == 1062) {
+                throw new DaoException("La raison social existe déja", Level.WARNING);
+            } else if (sqle.getErrorCode() == 1406) {
+                throw new DaoException("Valeur trop longue", Level.WARNING);
+            }
+            LogWritter.LOGGER.log(Level.SEVERE, "Problème de connexion " + sqle.getMessage());
+            throw new DaoException("Un problème de connexion est survenu l'application va donc s'arrêter", Level.SEVERE);
         } finally {
             if (pstmt != null) {
                 pstmt.close();
@@ -214,10 +231,9 @@ public class ClientDAO {
      * Méthode pour supprimer un client de la base de données.
      *
      * @param id L'identifiant du client à supprimer.
-     * @throws SQLException si une erreur SQL survient.
-     * @throws IOException si une erreur d'entrée/sortie survient.
+     * @throws Exception   Une exception.
      */
-    public static void deleteClient(int id) throws SQLException, IOException {
+    public static void deleteClient(int id) throws Exception {
         // Connexion à la base de données
         Connection con = ConnexionDAO.DAOConnexion();
         PreparedStatement pstmt = null;
@@ -227,8 +243,9 @@ public class ClientDAO {
             pstmt.setInt(1, id);
 
             pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException sqle) {
+            LogWritter.LOGGER.log(Level.SEVERE, "Problème de connexion " + sqle.getMessage());
+            throw new DaoException("Un problème de connexion est survenu l'application va donc s'arrêter", Level.SEVERE);
         } finally {
             if (pstmt != null) {
                 pstmt.close();

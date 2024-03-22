@@ -57,7 +57,7 @@ public class FormulaireController {
             String commentaire,
             double chiffreAffaire,
             int nbEmployes
-    ) throws FormException, SQLException, IOException {
+    ) throws Exception {
         Client client = new Client(raisonSociale, numRue, nomRue, codePostale, ville, tel, mail, commentaire, chiffreAffaire, nbEmployes);
         ClientDAO.insertClient(client);
     }
@@ -90,7 +90,7 @@ public class FormulaireController {
             String commentaire,
             LocalDate date,
             String interret
-    ) throws SQLException, IOException, FormException {
+    ) throws Exception {
         Prospect prospect = new Prospect(raisonSociale, numRue, nomRue, codePostale, ville, tel, mail, commentaire, date, interret);
         ProspectDAO.insertProspect(prospect);
     }
@@ -104,7 +104,7 @@ public class FormulaireController {
      * @throws IOException      Une exception d'entrée/sortie.
      * @throws FormException    Une exception de formulaire.
      */
-    public static void showUpdateForm(String type, String raisonSociale) throws SQLException, IOException, FormException {
+    public static void showUpdateForm(String type, String raisonSociale) throws Exception {
         String queryType = "update";
         if (Objects.equals(type, "client")) {
             Client client = ClientDAO.findByName(raisonSociale);
@@ -149,7 +149,7 @@ public class FormulaireController {
             String commentaire,
             double chiffreAffaire,
             int nbEmployes
-    ) throws FormException, SQLException, IOException {
+    ) throws Exception {
         Client client = new Client(raisonSociale, numRue, nomRue, codePostale, ville, tel, mail, commentaire, chiffreAffaire, nbEmployes);
         ClientDAO.updateClient(client, id);
     }
@@ -184,7 +184,7 @@ public class FormulaireController {
             String commentaire,
             LocalDate date,
             String interret
-    ) throws SQLException, IOException, FormException {
+    ) throws Exception {
         Prospect prospect = new Prospect(raisonSociale, numRue, nomRue, codePostale, ville, tel, mail, commentaire, date, interret);
         ProspectDAO.updateProspect(prospect, id);
     }
@@ -194,11 +194,9 @@ public class FormulaireController {
      *
      * @param type           Le type de formulaire à afficher (client ou prospect).
      * @param raisonSociale  La raison sociale du client ou du prospect à supprimer.
-     * @throws SQLException   Une exception de base de données.
-     * @throws IOException    Une exception d'entrée/sortie.
-     * @throws FormException  Une exception de formulaire.
+     * @throws Exception   Une exception.
      */
-    public static void deleteForm(String type, String raisonSociale) throws SQLException, IOException, FormException {
+    public static void deleteForm(String type, String raisonSociale) throws Exception {
         String queryType = "delete";
         if (Objects.equals(type, "client")) {
             Client client = ClientDAO.findByName(raisonSociale);
@@ -218,10 +216,9 @@ public class FormulaireController {
      *
      * @param type  Le type de données à supprimer (client ou prospect).
      * @param id    L'identifiant du client ou du prospect à supprimer.
-     * @throws SQLException   Une exception de base de données.
-     * @throws IOException    Une exception d'entrée/sortie.
+     * @throws Exception   Une exception
      */
-    public static void delete(String type, int id) throws SQLException, IOException {
+    public static void delete(String type, int id) throws Exception {
         if (Objects.equals(type, "client")) {
             ClientDAO.deleteClient(id);
         } else {

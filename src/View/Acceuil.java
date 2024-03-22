@@ -5,15 +5,14 @@ import Controller.AffichageController;
 import Controller.FormulaireController;
 import Job.Client;
 import Job.Prospect;
-import Exception.FormException;
 import Service.LogWritter;
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.logging.Level;
+import Exception.DaoException;
 
 /**
  * Cette classe représente la fenêtre principale de l'application.
@@ -66,19 +65,23 @@ public class Acceuil extends JDialog {
                     selected = "client";
                     comboBox1.removeAllItems();
                     fillComboBox();
+                    managedButton();
 
                     SelectPanel.setVisible(true);
                     ActionPanel.setVisible(true);
-                } catch (SQLException se) {
-                    JOptionPane.showMessageDialog(null, "Une erreur s'est produite");
-                    LogWritter.LOGGER.log(Level.SEVERE, se.getMessage());
-                } catch (IOException ie) {
-                    JOptionPane.showMessageDialog(null, "Une erreur s'est produite.");
-                    LogWritter.LOGGER.log(Level.SEVERE, "Error IO : " + ie.getMessage());
-                } catch (FormException fe) {
-                    JOptionPane.showMessageDialog(null, fe.getMessage());
+                } catch (DaoException daoe) {
+                    if (daoe.getLevel() == Level.SEVERE) {
+                        JOptionPane.showMessageDialog(null, daoe.getMessage());
+                        System.exit(1);
+                    }
+                    JOptionPane.showMessageDialog(null, daoe.getMessage());
+                } catch (SQLException sqle) {
+                    JOptionPane.showMessageDialog(null, sqle.getMessage());
+                    System.exit(1);
                 } catch (Exception ex) {
-                    LogWritter.LOGGER.log(Level.SEVERE, "Error IO : " + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "L'application a rencontré un problème va se fermer");
+                    LogWritter.LOGGER.log(Level.SEVERE, "Error : " + ex.getMessage());
+                    System.exit(1);
                 }
             }
         });
@@ -90,19 +93,20 @@ public class Acceuil extends JDialog {
                     selected = "prospect";
                     comboBox1.removeAllItems();
                     fillComboBox();
+                    managedButton();
 
                     SelectPanel.setVisible(true);
                     ActionPanel.setVisible(true);
-                } catch (SQLException se) {
-                    JOptionPane.showMessageDialog(null, "Une erreur s'est produite");
-                    LogWritter.LOGGER.log(Level.SEVERE, se.getMessage());
-                } catch (IOException ie) {
-                    JOptionPane.showMessageDialog(null, "Une erreur s'est produite.");
-                    LogWritter.LOGGER.log(Level.SEVERE, "Error IO : " + ie.getMessage());
-                } catch (FormException fe) {
-                    JOptionPane.showMessageDialog(null, fe.getMessage());
+                } catch (DaoException daoe) {
+                    if (daoe.getLevel() == Level.SEVERE) {
+                        JOptionPane.showMessageDialog(null, daoe.getMessage());
+                        System.exit(1);
+                    }
+                    JOptionPane.showMessageDialog(null, daoe.getMessage());
                 } catch (Exception ex) {
-                    LogWritter.LOGGER.log(Level.SEVERE, "Error IO : " + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "L'application a rencontré un problème va se fermer");
+                    LogWritter.LOGGER.log(Level.SEVERE, "Error : " + ex.getMessage());
+                    System.exit(1);
                 }
             }
         });
@@ -113,16 +117,10 @@ public class Acceuil extends JDialog {
                 dispose();
                 try {
                     AffichageController.show(selected);
-                } catch (SQLException se) {
-                    JOptionPane.showMessageDialog(null, "Une erreur s'est produite");
-                    LogWritter.LOGGER.log(Level.SEVERE, se.getMessage());
-                } catch (IOException ie) {
-                    JOptionPane.showMessageDialog(null, "Une erreur s'est produite.");
-                    LogWritter.LOGGER.log(Level.SEVERE, "Error IO : " + ie.getMessage());
-                } catch (FormException fe) {
-                    JOptionPane.showMessageDialog(null, fe.getMessage());
                 } catch (Exception ex) {
-                    LogWritter.LOGGER.log(Level.SEVERE, "Error IO : " + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "L'application a rencontré un problème va se fermer");
+                    LogWritter.LOGGER.log(Level.SEVERE, "Error : " + ex.getMessage());
+                    System.exit(1);
                 }
             }
         });
@@ -141,16 +139,16 @@ public class Acceuil extends JDialog {
                 dispose();
                 try {
                     FormulaireController.showUpdateForm(selected, comboBox1.getSelectedItem().toString());
-                } catch (SQLException se) {
-                    JOptionPane.showMessageDialog(null, "Une erreur s'est produite");
-                    LogWritter.LOGGER.log(Level.SEVERE, se.getMessage());
-                } catch (IOException ie) {
-                    JOptionPane.showMessageDialog(null, "Une erreur s'est produite.");
-                    LogWritter.LOGGER.log(Level.SEVERE, "Error IO : " + ie.getMessage());
-                } catch (FormException fe) {
-                    JOptionPane.showMessageDialog(null, fe.getMessage());
+                } catch (DaoException daoe) {
+                    if (daoe.getLevel() == Level.SEVERE) {
+                        JOptionPane.showMessageDialog(null, daoe.getMessage());
+                        System.exit(1);
+                    }
+                    JOptionPane.showMessageDialog(null, daoe.getMessage());
                 } catch (Exception ex) {
-                    LogWritter.LOGGER.log(Level.SEVERE, "Error IO : " + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "L'application a rencontré un problème va se fermer");
+                    LogWritter.LOGGER.log(Level.SEVERE, "Error : " + ex.getMessage());
+                    System.exit(1);
                 }
             }
         });
@@ -161,16 +159,16 @@ public class Acceuil extends JDialog {
                 dispose();
                 try {
                     FormulaireController.deleteForm(selected, comboBox1.getSelectedItem().toString());
-                } catch (SQLException se) {
-                    JOptionPane.showMessageDialog(null, "Une erreur s'est produite");
-                    LogWritter.LOGGER.log(Level.SEVERE, se.getMessage());
-                } catch (IOException ie) {
-                    JOptionPane.showMessageDialog(null, "Une erreur s'est produite.");
-                    LogWritter.LOGGER.log(Level.SEVERE, "Error IO : " + ie.getMessage());
-                } catch (FormException fe) {
-                    JOptionPane.showMessageDialog(null, fe.getMessage());
+                } catch (DaoException daoe) {
+                    if (daoe.getLevel() == Level.SEVERE) {
+                        JOptionPane.showMessageDialog(null, daoe.getMessage());
+                        System.exit(1);
+                    }
+                    JOptionPane.showMessageDialog(null, daoe.getMessage());
                 } catch (Exception ex) {
-                    LogWritter.LOGGER.log(Level.SEVERE, "Error IO : " + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "L'application a rencontré un problème va se fermer");
+                    LogWritter.LOGGER.log(Level.SEVERE, "Error : " + ex.getMessage());
+                    System.exit(1);
                 }
             }
         });
@@ -186,21 +184,34 @@ public class Acceuil extends JDialog {
     /**
      * Méthode pour remplir la JComboBox avec les éléments récupérés de la base de données.
      *
-     * @throws SQLException si une erreur SQL survient.
-     * @throws IOException si une erreur d'entrée/sortie survient.
-     * @throws FormException si une exception de formulaire est rencontrée.
+     * @throws Exception   Une exception
      */
-    private void fillComboBox() throws SQLException, IOException, FormException{
+    private void fillComboBox() throws Exception {
         if (Objects.equals(selected, "client")) {
             ArrayList<Client> clients = AcceuilController.addClientOnComboBox();
             for (Client client : clients) {
-                comboBox1.addItem(client.toString());
+                comboBox1.addItem(client.getRaisonSociale());
             }
         } else if (Objects.equals(selected, "prospect")) {
             ArrayList<Prospect> prospects = AcceuilController.addProspectOnComboBox();
             for (Prospect prospect : prospects) {
-                comboBox1.addItem(prospect.toString());
+                comboBox1.addItem(prospect.getRaisonSociale());
             }
+        }
+    }
+
+    /**
+     * Méthode pour afficher ou cacher les boutons de affichage, modification et suppression en fonction de la comboBox.
+     */
+    private void managedButton() {
+        if (comboBox1.getItemCount() == 0) {
+            afficherButton.setVisible(false);
+            modifierButton.setVisible(false);
+            supprimerButton.setVisible(false);
+        } else {
+            afficherButton.setVisible(true);
+            modifierButton.setVisible(true);
+            supprimerButton.setVisible(true);
         }
     }
 }

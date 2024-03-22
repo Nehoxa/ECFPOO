@@ -1,18 +1,24 @@
-import Exception.FormException;
 import Service.FormatterLog;
 import Service.LogWritter;
 import View.Acceuil;
 
+import javax.swing.*;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 
 public class Main {
     private static FileHandler fh = null;
 
-    public static void main(String[] args) throws SQLException, IOException, FormException {
-        fh = new FileHandler("logAppli.log", true);
+    public static void main(String[] args) {
+
+        try {
+            fh = new FileHandler("logAppli.log", true);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "L'application a rencontré un problème va se fermer");
+            LogWritter.LOGGER.log(Level.SEVERE, "Error : " + e.getMessage());
+        }
+
 
         LogWritter.LOGGER.setUseParentHandlers(false);
         LogWritter.LOGGER.addHandler(fh);

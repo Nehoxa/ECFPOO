@@ -1,12 +1,16 @@
 package DAO;
 
-import Controller.AcceuilController;
 import Job.Prospect;
+import Service.LogWritter;
+
+import Exception.DaoException;
 import Exception.FormException;
-import java.awt.event.ActionEvent;
-import java.io.IOException;
+
 import java.sql.*;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 /**
  * Cette classe fournit des méthodes pour accéder et manipuler les données des prospects dans la base de données.
@@ -17,11 +21,9 @@ public class ProspectDAO {
      * Méthode pour récupérer tous les prospects de la base de données.
      *
      * @return Une liste contenant tous les prospects de la base de données.
-     * @throws SQLException si une erreur SQL survient.
-     * @throws IOException si une erreur d'entrée/sortie survient.
-     * @throws FormException si une exception de formulaire est rencontrée.
+     * @throws Exception   Une exception.
      */
-    public static ArrayList<Prospect> findAll() throws SQLException, IOException, FormException {
+    public static ArrayList<Prospect> findAll() throws Exception {
         // Connexion à la base de données
         Connection con = ConnexionDAO.DAOConnexion();
         PreparedStatement pstmt = null;
@@ -56,8 +58,11 @@ public class ProspectDAO {
                 prospect.setInterret(rs.getString("INTERRET"));
                 prospects.add(prospect);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (FormException fe) {
+            throw new DaoException(fe.getMessage(), Level.WARNING);
+        } catch (SQLException sqle) {
+            LogWritter.LOGGER.log(Level.SEVERE, "Problème de connexion " + sqle.getMessage());
+            throw new DaoException("Problème de connexion", Level.SEVERE);
         } finally {
             if (pstmt != null) {
                 pstmt.close();
@@ -71,11 +76,9 @@ public class ProspectDAO {
      *
      * @param name Le nom du prospect à rechercher.
      * @return Le prospect trouvé dans la base de données.
-     * @throws SQLException si une erreur SQL survient.
-     * @throws IOException si une erreur d'entrée/sortie survient.
-     * @throws FormException si une exception de formulaire est rencontrée.
+     * @throws Exception   Une exception.
      */
-    public static Prospect findByName(String name) throws SQLException, IOException, FormException {
+    public static Prospect findByName(String name) throws Exception {
         // Connexion à la base de données
         Connection con = ConnexionDAO.DAOConnexion();
         PreparedStatement stmt = null;
@@ -109,8 +112,11 @@ public class ProspectDAO {
                 prospect.setDateProspect(rs.getDate("DATE_PROSPECT").toLocalDate());
                 prospect.setInterret(rs.getString("INTERRET"));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (FormException fe) {
+            throw new DaoException(fe.getMessage(), Level.WARNING);
+        } catch (SQLException sqle) {
+            LogWritter.LOGGER.log(Level.SEVERE, "Problème de connexion " + sqle.getMessage());
+            throw new DaoException("Un problème de connexion est survenu l'application va donc s'arrêter", Level.SEVERE);
         } finally {
             if (stmt != null) {
                 stmt.close();
@@ -123,10 +129,9 @@ public class ProspectDAO {
      * Méthode pour insérer un nouveau prospect dans la base de données.
      *
      * @param prospect Le prospect à insérer.
-     * @throws SQLException si une erreur SQL survient.
-     * @throws IOException si une erreur d'entrée/sortie survient.
+     * @throws Exception   Une exception.
      */
-    public static void insertProspect(Prospect prospect) throws SQLException, IOException {
+    public static void insertProspect(Prospect prospect) throws Exception {
         // Connexion à la base de données
         Connection con = ConnexionDAO.DAOConnexion();
         PreparedStatement pstmt = null;
@@ -156,8 +161,14 @@ public class ProspectDAO {
             pstmt.setString(10, prospect.getInterret());
 
             pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException sqle) {
+            if (sqle.getErrorCode() == 1062) {
+                throw new DaoException("La raison social existe déja", Level.WARNING);
+            } else if (sqle.getErrorCode() == 1406) {
+                throw new DaoException("Un des champs est trop long", Level.WARNING);
+            }
+            LogWritter.LOGGER.log(Level.SEVERE, "Problème de connexion " + sqle.getMessage());
+            throw new DaoException("Un problème de connexion est survenu l'application va donc s'arrêter", Level.SEVERE);
         } finally {
             if (pstmt != null) {
                 pstmt.close();
@@ -170,10 +181,9 @@ public class ProspectDAO {
      *
      * @param prospect Le prospect avec les informations mises à jour.
      * @param id L'identifiant du prospect à mettre à jour.
-     * @throws SQLException si une erreur SQL survient.
-     * @throws IOException si une erreur d'entrée/sortie survient.
+     * @throws Exception   Une exception.
      */
-    public static void updateProspect(Prospect prospect, int id) throws SQLException, IOException {
+    public static void updateProspect(Prospect prospect, int id) throws Exception {
         // Connexion à la base de données
         Connection con = ConnexionDAO.DAOConnexion();
         PreparedStatement pstmt = null;
@@ -203,8 +213,14 @@ public class ProspectDAO {
             pstmt.setString(10, prospect.getInterret());
 
             pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException sqle) {
+            if (sqle.getErrorCode() == 1062) {
+                throw new DaoException("La raison social existe déja", Level.WARNING);
+            } else if (sqle.getErrorCode() == 1406) {
+                throw new DaoException("Le champs est trop long", Level.WARNING);
+            }
+            LogWritter.LOGGER.log(Level.SEVERE, "Problème de connexion " + sqle.getMessage());
+            throw new DaoException("Un problème de connexion est survenu l'application va donc s'arrêter", Level.SEVERE);
         } finally {
             if (pstmt != null) {
                 pstmt.close();
@@ -216,10 +232,9 @@ public class ProspectDAO {
      * Méthode pour supprimer un prospect de la base de données.
      *
      * @param id L'identifiant du prospect à supprimer.
-     * @throws SQLException si une erreur SQL survient.
-     * @throws IOException si une erreur d'entrée/sortie survient.
+     * @throws Exception   Une exception.
      */
-    public static void deleteProspect(int id) throws SQLException, IOException {
+    public static void deleteProspect(int id) throws Exception {
         // Connexion à la base de données
         Connection con = ConnexionDAO.DAOConnexion();
         PreparedStatement pstmt = null;
@@ -229,8 +244,9 @@ public class ProspectDAO {
             pstmt.setInt(1, id);
 
             pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException sqle) {
+            LogWritter.LOGGER.log(Level.SEVERE, "Problème de connexion " + sqle.getMessage());
+            throw new DaoException("Un problème de connexion est survenu l'application va donc s'arrêter", Level.SEVERE);
         } finally {
             if (pstmt != null) {
                 pstmt.close();
