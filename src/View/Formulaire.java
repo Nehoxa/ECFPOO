@@ -115,7 +115,7 @@ public class Formulaire extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 try {
                     // Vérification des champs obligatoires
-                    if (textRs.getText().isEmpty() ||
+                    if (    textRs.getText().isEmpty() ||
                             textNumRue.getText().isEmpty() ||
                             textNomRue.getText().isEmpty() ||
                             textCodePostale.getText().isEmpty() ||

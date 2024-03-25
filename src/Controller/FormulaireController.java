@@ -42,9 +42,7 @@ public class FormulaireController {
      * @param commentaire       Les commentaires sur le client.
      * @param chiffreAffaire    Le chiffre d'affaires du client.
      * @param nbEmployes        Le nombre d'employés du client.
-     * @throws FormException    Une exception de formulaire.
-     * @throws SQLException     Une exception de base de données.
-     * @throws IOException      Une exception d'entrée/sortie.
+     * @throws Exception   Une exception.
      */
     public static void createClient(
             String raisonSociale,
@@ -75,9 +73,7 @@ public class FormulaireController {
      * @param commentaire       Les commentaires sur le prospect.
      * @param date              La date de prospection du prospect.
      * @param interret          L'intérêt du prospect.
-     * @throws SQLException     Une exception de base de données.
-     * @throws IOException      Une exception d'entrée/sortie.
-     * @throws FormException    Une exception de formulaire.
+     * @throws Exception   Une exception.
      */
     public static void createProspect(
             String raisonSociale,
@@ -100,9 +96,7 @@ public class FormulaireController {
      *
      * @param type          Le type de formulaire à afficher (client ou prospect).
      * @param raisonSociale La raison sociale du client ou du prospect à mettre à jour.
-     * @throws SQLException     Une exception de base de données.
-     * @throws IOException      Une exception d'entrée/sortie.
-     * @throws FormException    Une exception de formulaire.
+     * @throws Exception   Une exception.
      */
     public static void showUpdateForm(String type, String raisonSociale) throws Exception {
         String queryType = "update";
@@ -133,9 +127,7 @@ public class FormulaireController {
      * @param commentaire       Les commentaires sur le client.
      * @param chiffreAffaire    Le chiffre d'affaires du client.
      * @param nbEmployes        Le nombre d'employés du client.
-     * @throws FormException    Une exception de formulaire.
-     * @throws SQLException     Une exception de base de données.
-     * @throws IOException      Une exception d'entrée/sortie.
+     * @throws Exception   Une exception.
      */
     public static void updateClient(
             int id,
@@ -168,9 +160,7 @@ public class FormulaireController {
      * @param commentaire      Le commentaire sur le prospect.
      * @param date             La date de prospection du prospect.
      * @param interret         L'intérêt du prospect.
-     * @throws SQLException    Une exception de base de données.
-     * @throws IOException     Une exception d'entrée/sortie.
-     * @throws FormException   Une exception de formulaire.
+     * @throws Exception   Une exception.
      */
     public static void updateProspect(
             int id,

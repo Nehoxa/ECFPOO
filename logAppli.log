@@ -216,3 +216,7 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
 22/03/2024 09:59:05 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
 22/03/2024 10:02:00 Level : INFO / Message : début pg / Classe : Main / Méthode : main
 22/03/2024 10:02:01 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
+25/03/2024 15:52:55 Level : INFO / Message : début pg / Classe : Main / Méthode : main
+25/03/2024 15:52:57 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
+25/03/2024 15:54:55 Level : INFO / Message : début pg / Classe : Main / Méthode : main
+25/03/2024 15:54:56 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
