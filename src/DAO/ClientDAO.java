@@ -162,7 +162,7 @@ public class ClientDAO {
             pstmt.executeUpdate();
         } catch (SQLException sqle) {
             if (sqle.getErrorCode() == 1062) {
-                throw new DaoException("La raison social existe déja", Level.WARNING);
+                throw new DaoException("La raison sociale existe déja", Level.WARNING);
             } else if (sqle.getErrorCode() == 1406) {
                 throw new DaoException("Valeur trop longue", Level.WARNING);
             }
@@ -214,7 +214,7 @@ public class ClientDAO {
             pstmt.executeUpdate();
         } catch (SQLException sqle) {
             if (sqle.getErrorCode() == 1062) {
-                throw new DaoException("La raison social existe déja", Level.WARNING);
+                throw new DaoException("La raison sociale existe déja", Level.WARNING);
             } else if (sqle.getErrorCode() == 1406) {
                 throw new DaoException("Valeur trop longue", Level.WARNING);
             }

@@ -220,3 +220,44 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
 25/03/2024 15:52:57 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
 25/03/2024 15:54:55 Level : INFO / Message : début pg / Classe : Main / Méthode : main
 25/03/2024 15:54:56 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
+25/03/2024 16:36:31 Level : INFO / Message : début pg / Classe : Main / Méthode : main
+25/03/2024 16:36:32 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
+03/04/2024 14:29:00 Level : INFO / Message : début pg / Classe : Main / Méthode : main
+03/04/2024 14:29:02 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
+03/04/2024 14:29:04 Level : SEVERE / Message : Problème de connexion No suitable driver found for jdbc:mysql://localhost:3306/ECFPOO?serverTimezone=UTC / Classe : DAO.ConnexionDAO / Méthode : <init>
+03/04/2024 14:29:50 Level : INFO / Message : début pg / Classe : Main / Méthode : main
+03/04/2024 14:29:51 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
+03/04/2024 14:29:53 Level : SEVERE / Message : Problème de connexion No suitable driver found for jdbc:mysql://localhost:3306/ECFPOO?serverTimezone=UTC / Classe : DAO.ConnexionDAO / Méthode : <init>
+03/04/2024 14:30:23 Level : INFO / Message : début pg / Classe : Main / Méthode : main
+03/04/2024 14:30:24 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
+03/04/2024 14:30:26 Level : SEVERE / Message : Problème de connexion No suitable driver found for jdbc:mysql://localhost:3306/ECFPOO?serverTimezone=UTC / Classe : DAO.ConnexionDAO / Méthode : <init>
+03/04/2024 14:30:56 Level : INFO / Message : début pg / Classe : Main / Méthode : main
+03/04/2024 14:30:57 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
+03/04/2024 14:30:58 Level : SEVERE / Message : Problème de connexion No suitable driver found for jdbc:mysql://localhost:3306/ECFPOO?serverTimezone=UTC / Classe : DAO.ConnexionDAO / Méthode : <init>
+03/04/2024 14:32:04 Level : INFO / Message : début pg / Classe : Main / Méthode : main
+03/04/2024 14:32:05 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
+03/04/2024 14:32:06 Level : SEVERE / Message : Problème de connexion No suitable driver found for jdbc:mysql://localhost:3306/ECFPOO?serverTimezone=UTC / Classe : DAO.ConnexionDAO / Méthode : <init>
+03/04/2024 14:33:22 Level : INFO / Message : début pg / Classe : Main / Méthode : main
+03/04/2024 14:33:23 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
+03/04/2024 14:33:25 Level : SEVERE / Message : Problème de connexion No suitable driver found for jdbc:mysql://localhost:3306/ECFPOO?serverTimezone=UTC / Classe : DAO.ConnexionDAO / Méthode : <init>
+03/04/2024 14:34:24 Level : INFO / Message : début pg / Classe : Main / Méthode : main
+03/04/2024 14:34:25 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
+03/04/2024 14:34:28 Level : SEVERE / Message : Problème de connexion No suitable driver found for jdbc:mysql://localhost:3306/ECFPOO?serverTimezone=UTC / Classe : DAO.ConnexionDAO / Méthode : <init>
+03/04/2024 14:34:34 Level : INFO / Message : début pg / Classe : Main / Méthode : main
+03/04/2024 14:34:35 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
+03/04/2024 14:34:37 Level : SEVERE / Message : Problème de connexion No suitable driver found for jdbc:mysql://localhost:3306/ECFPOO?serverTimezone=UTC / Classe : DAO.ConnexionDAO / Méthode : <init>
+03/04/2024 14:35:29 Level : INFO / Message : début pg / Classe : Main / Méthode : main
+03/04/2024 14:35:30 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
+03/04/2024 14:35:31 Level : SEVERE / Message : Problème de connexion No suitable driver found for jdbc:mysql://localhost:3306/ECFPOO?serverTimezone=UTC / Classe : DAO.ConnexionDAO / Méthode : <init>
+03/04/2024 14:39:55 Level : INFO / Message : début pg / Classe : Main / Méthode : main
+03/04/2024 14:39:56 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
+03/04/2024 14:40:21 Level : INFO / Message : début pg / Classe : Main / Méthode : main
+03/04/2024 14:40:22 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
+03/04/2024 14:40:38 Level : INFO / Message : début pg / Classe : Main / Méthode : main
+03/04/2024 14:40:39 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
+03/04/2024 14:57:14 Level : INFO / Message : début pg / Classe : Main / Méthode : main
+03/04/2024 14:57:15 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
+16/04/2024 11:03:32 Level : INFO / Message : début pg / Classe : Main / Méthode : main
+16/04/2024 11:03:34 Level : INFO / Message : fin pg / Classe : Main / Méthode : main
+16/04/2024 14:56:32 Level : INFO / Message : début pg / Classe : Main / Méthode : main
+16/04/2024 14:56:33 Level : INFO / Message : fin pg / Classe : Main / Méthode : main

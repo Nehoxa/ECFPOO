@@ -115,7 +115,7 @@ public class Formulaire extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 try {
                     // Vérification des champs obligatoires
-                    if (    textRs.getText().isEmpty() ||
+                    if (textRs.getText().isEmpty() ||
                             textNumRue.getText().isEmpty() ||
                             textNomRue.getText().isEmpty() ||
                             textCodePostale.getText().isEmpty() ||
@@ -184,12 +184,12 @@ public class Formulaire extends JDialog {
                     JOptionPane.showMessageDialog(null, "Erreur de saisie : " + fe.getMessage());
                 } catch (DaoException daoe) {
                     if (daoe.getLevel() == Level.SEVERE) {
-                        JOptionPane.showMessageDialog(null, daoe.getMessage());
+                        JOptionPane.showMessageDialog(null, "L'application a rencontrée un problème va se fermer");
                         System.exit(1);
                     }
                     JOptionPane.showMessageDialog(null, daoe.getMessage());
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "L'application a rencontré un problème va se fermer");
+                    JOptionPane.showMessageDialog(null, "L'application a rencontrée un problème va se fermer");
                     LogWritter.LOGGER.log(Level.SEVERE, "Error : " + ex.getMessage());
                     System.exit(1);
                 }
@@ -211,7 +211,7 @@ public class Formulaire extends JDialog {
                         AcceuilController.returnAcceuil();
                     }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "L'application a rencontré un problème va se fermer");
+                    JOptionPane.showMessageDialog(null, "L'application a rencontrée un problème va se fermer");
                     LogWritter.LOGGER.log(Level.SEVERE, "Error : " + ex.getMessage());
                     System.exit(1);
                 }

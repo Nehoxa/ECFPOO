@@ -21,7 +21,7 @@ public class ProspectDAO {
      * Méthode pour récupérer tous les prospects de la base de données.
      *
      * @return Une liste contenant tous les prospects de la base de données.
-     * @throws Exception   Une exception.
+     * @throws Exception Une exception.
      */
     public static ArrayList<Prospect> findAll() throws Exception {
         // Connexion à la base de données
@@ -76,7 +76,7 @@ public class ProspectDAO {
      *
      * @param name Le nom du prospect à rechercher.
      * @return Le prospect trouvé dans la base de données.
-     * @throws Exception   Une exception.
+     * @throws Exception Une exception.
      */
     public static Prospect findByName(String name) throws Exception {
         // Connexion à la base de données
@@ -129,7 +129,7 @@ public class ProspectDAO {
      * Méthode pour insérer un nouveau prospect dans la base de données.
      *
      * @param prospect Le prospect à insérer.
-     * @throws Exception   Une exception.
+     * @throws Exception Une exception.
      */
     public static void insertProspect(Prospect prospect) throws Exception {
         // Connexion à la base de données
@@ -163,7 +163,7 @@ public class ProspectDAO {
             pstmt.executeUpdate();
         } catch (SQLException sqle) {
             if (sqle.getErrorCode() == 1062) {
-                throw new DaoException("La raison social existe déja", Level.WARNING);
+                throw new DaoException("La raison sociale existe déja", Level.WARNING);
             } else if (sqle.getErrorCode() == 1406) {
                 throw new DaoException("Un des champs est trop long", Level.WARNING);
             }
@@ -180,8 +180,8 @@ public class ProspectDAO {
      * Méthode pour mettre à jour les informations d'un prospect dans la base de données.
      *
      * @param prospect Le prospect avec les informations mises à jour.
-     * @param id L'identifiant du prospect à mettre à jour.
-     * @throws Exception   Une exception.
+     * @param id       L'identifiant du prospect à mettre à jour.
+     * @throws Exception Une exception.
      */
     public static void updateProspect(Prospect prospect, int id) throws Exception {
         // Connexion à la base de données
@@ -215,7 +215,7 @@ public class ProspectDAO {
             pstmt.executeUpdate();
         } catch (SQLException sqle) {
             if (sqle.getErrorCode() == 1062) {
-                throw new DaoException("La raison social existe déja", Level.WARNING);
+                throw new DaoException("La raison sociale existe déja", Level.WARNING);
             } else if (sqle.getErrorCode() == 1406) {
                 throw new DaoException("Le champs est trop long", Level.WARNING);
             }
@@ -232,7 +232,7 @@ public class ProspectDAO {
      * Méthode pour supprimer un prospect de la base de données.
      *
      * @param id L'identifiant du prospect à supprimer.
-     * @throws Exception   Une exception.
+     * @throws Exception Une exception.
      */
     public static void deleteProspect(int id) throws Exception {
         // Connexion à la base de données

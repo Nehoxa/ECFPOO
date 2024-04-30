@@ -15,8 +15,8 @@ public class Main {
         try {
             fh = new FileHandler("logAppli.log", true);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "L'application a rencontré un problème va se fermer");
-            LogWritter.LOGGER.log(Level.SEVERE, "Error : " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "L'application a rencontrée un problème va se fermer");
+            System.exit(1);
         }
 
 

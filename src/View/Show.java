@@ -29,9 +29,9 @@ public class Show extends JDialog {
      * Constructeur de la classe Show.
      * Affiche les données des clients ou des prospects dans un tableau.
      *
-     * @param raisonSociale Le type de données à afficher (client ou prospect).
+     * @param type Le type de données à afficher (client ou prospect).
      */
-    public Show(String raisonSociale) {
+    public Show(String type) {
         contentPane = new JPanel(new BorderLayout());
         setContentPane(contentPane);
         setModal(true);
@@ -67,11 +67,11 @@ public class Show extends JDialog {
 
         try {
             // Affichage des données en fonction du type de données à afficher
-            if (Objects.equals(raisonSociale, "client")) {
+            if (Objects.equals(type, "client")) {
                 model.addColumn("Chiffre d'affaire");
                 model.addColumn("Nombre d'employées");
 
-                ArrayList<Client> clients = AffichageController.getData(raisonSociale);
+                ArrayList<Client> clients = AffichageController.getData(type);
 
                 // Remplissage du tableau avec les données des clients
                 for (Client client : clients) {
@@ -94,7 +94,7 @@ public class Show extends JDialog {
                 model.addColumn("Date de prospection");
                 model.addColumn("Intérêt");
 
-                ArrayList<Prospect> prospects = AffichageController.getData(raisonSociale);
+                ArrayList<Prospect> prospects = AffichageController.getData(type);
 
                 // Remplissage du tableau avec les données des prospects
                 for (Prospect prospect : prospects) {
@@ -118,7 +118,7 @@ public class Show extends JDialog {
             JOptionPane.showMessageDialog(null, sqle.getMessage());
             System.exit(1);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "L'application a rencontré un problème va se fermer");
+            JOptionPane.showMessageDialog(null, "L'application a rencontrée un problème va se fermer");
             LogWritter.LOGGER.log(Level.SEVERE, "Error : " + ex.getMessage());
             System.exit(1);
         }

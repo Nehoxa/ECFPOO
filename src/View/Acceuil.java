@@ -71,15 +71,15 @@ public class Acceuil extends JDialog {
                     ActionPanel.setVisible(true);
                 } catch (DaoException daoe) {
                     if (daoe.getLevel() == Level.SEVERE) {
-                        JOptionPane.showMessageDialog(null, daoe.getMessage());
+                JOptionPane.showMessageDialog(null, "L'application a rencontrée un problème va se fermer");
                         System.exit(1);
                     }
                     JOptionPane.showMessageDialog(null, daoe.getMessage());
                 } catch (SQLException sqle) {
-                    JOptionPane.showMessageDialog(null, sqle.getMessage());
+            JOptionPane.showMessageDialog(null, "L'application a rencontrée un problème va se fermer");
                     System.exit(1);
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "L'application a rencontré un problème va se fermer");
+            JOptionPane.showMessageDialog(null, "L'application a rencontrée un problème va se fermer");
                     LogWritter.LOGGER.log(Level.SEVERE, "Error : " + ex.getMessage());
                     System.exit(1);
                 }
@@ -99,12 +99,12 @@ public class Acceuil extends JDialog {
                     ActionPanel.setVisible(true);
                 } catch (DaoException daoe) {
                     if (daoe.getLevel() == Level.SEVERE) {
-                        JOptionPane.showMessageDialog(null, daoe.getMessage());
+                JOptionPane.showMessageDialog(null, "L'application a rencontrée un problème va se fermer");
                         System.exit(1);
                     }
                     JOptionPane.showMessageDialog(null, daoe.getMessage());
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "L'application a rencontré un problème va se fermer");
+            JOptionPane.showMessageDialog(null, "L'application a rencontrée un problème va se fermer");
                     LogWritter.LOGGER.log(Level.SEVERE, "Error : " + ex.getMessage());
                     System.exit(1);
                 }
@@ -118,7 +118,7 @@ public class Acceuil extends JDialog {
                 try {
                     AffichageController.show(selected);
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "L'application a rencontré un problème va se fermer");
+            JOptionPane.showMessageDialog(null, "L'application a rencontrée un problème va se fermer");
                     LogWritter.LOGGER.log(Level.SEVERE, "Error : " + ex.getMessage());
                     System.exit(1);
                 }
@@ -141,12 +141,12 @@ public class Acceuil extends JDialog {
                     FormulaireController.showUpdateForm(selected, comboBox1.getSelectedItem().toString());
                 } catch (DaoException daoe) {
                     if (daoe.getLevel() == Level.SEVERE) {
-                        JOptionPane.showMessageDialog(null, daoe.getMessage());
+                JOptionPane.showMessageDialog(null, "L'application a rencontrée un problème va se fermer");
                         System.exit(1);
                     }
                     JOptionPane.showMessageDialog(null, daoe.getMessage());
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "L'application a rencontré un problème va se fermer");
+            JOptionPane.showMessageDialog(null, "L'application a rencontrée un problème va se fermer");
                     LogWritter.LOGGER.log(Level.SEVERE, "Error : " + ex.getMessage());
                     System.exit(1);
                 }
@@ -161,12 +161,12 @@ public class Acceuil extends JDialog {
                     FormulaireController.deleteForm(selected, comboBox1.getSelectedItem().toString());
                 } catch (DaoException daoe) {
                     if (daoe.getLevel() == Level.SEVERE) {
-                        JOptionPane.showMessageDialog(null, daoe.getMessage());
+                JOptionPane.showMessageDialog(null, "L'application a rencontrée un problème va se fermer");
                         System.exit(1);
                     }
                     JOptionPane.showMessageDialog(null, daoe.getMessage());
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "L'application a rencontré un problème va se fermer");
+            JOptionPane.showMessageDialog(null, "L'application a rencontrée un problème va se fermer");
                     LogWritter.LOGGER.log(Level.SEVERE, "Error : " + ex.getMessage());
                     System.exit(1);
                 }

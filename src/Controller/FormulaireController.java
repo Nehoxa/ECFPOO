@@ -6,10 +6,6 @@ import Job.Client;
 import Job.Prospect;
 import View.Formulaire;
 
-import Exception.FormException;
-
-import java.io.IOException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Objects;
 

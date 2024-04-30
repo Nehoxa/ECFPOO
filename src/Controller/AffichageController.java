@@ -15,10 +15,10 @@ public class AffichageController {
     /**
      * Affiche une fenêtre pour visualiser les données des clients ou des prospects en fonction de la raison sociale.
      *
-     * @param raisonSociale  La raison sociale des données à afficher (client ou prospect).
+     * @param type  Le type des données à afficher (client ou prospect).
      */
-    public static void show(String raisonSociale) {
-        Show show = new Show(raisonSociale);
+    public static void show(String type) {
+        Show show = new Show(type);
         show.setVisible(true);
     }
 
